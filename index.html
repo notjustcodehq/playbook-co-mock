@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
 <title>The Playbook Co. — Reviewed Mock</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
@@ -106,19 +110,6 @@
     flex-wrap: wrap;
   }
   .utility-bar span.dim { opacity: 0.65; }
-  .review-toggle {
-    background: transparent;
-    border: 1px solid rgba(234, 230, 218, 0.4);
-    color: var(--pitch-text);
-    padding: 0.35rem 0.7rem;
-    border-radius: 2px;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.02em;
-    transition: background 0.15s ease, border-color 0.15s ease;
-  }
-  .review-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  body.review-mode .review-toggle { background: var(--review); border-color: var(--review); color: #fff; }
 
   /* ---------- navbar ---------- */
   .navbar {
@@ -217,7 +208,7 @@
   .hero-ctas { display: flex; gap: 0.9rem; margin-top: 2.2rem; flex-wrap: wrap; }
 
   .removed-ghost {
-    display: none;
+    display: flex;
     margin-top: 2.5rem;
     padding: 1rem 1.2rem;
     border: 1px dashed var(--review-line);
@@ -225,7 +216,6 @@
     max-width: 44ch;
     gap: 1.6rem;
   }
-  body.review-mode .removed-ghost { display: flex; }
   .removed-ghost .stat { font-family: var(--font-mono); }
   .removed-ghost .stat b {
     display: block;
@@ -236,16 +226,15 @@
   }
   .removed-ghost .stat small { color: var(--ink-soft); font-family: var(--font-body); }
 
-  /* ---------- note flags (review annotations) ---------- */
+  /* ---------- note flags (review remarks, always visible) ---------- */
   .note-flag {
-    display: none;
+    display: block;
     margin-top: 1.1rem;
     border: 1px dashed var(--review-line);
     background: var(--review-soft);
     padding: 0.6rem 0.85rem;
     max-width: 60ch;
   }
-  body.review-mode .note-flag { display: block; }
   .note-flag summary {
     cursor: pointer;
     font-family: var(--font-mono);
@@ -261,7 +250,7 @@
     color: var(--ink);
     font-family: var(--font-body);
   }
-  body.review-mode .noted { outline: 2px dashed var(--review-line); outline-offset: 6px; }
+  .noted { outline: 2px dashed var(--review-line); outline-offset: 6px; }
 
   /* ---------- services ---------- */
   .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
@@ -423,11 +412,13 @@
   body.lang-gr .i18n-en { display: none; }
   body.lang-gr .i18n-gr { display: inline; }
 </style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23173628'/%3E%3Cg stroke='%23e2a63b' stroke-width='4' fill='none' stroke-linecap='round'%3E%3Cline x1='14' y1='16' x2='14' y2='30'/%3E%3Cline x1='14' y1='23' x2='26' y2='23'/%3E%3Cline x1='14' y1='34' x2='14' y2='48'/%3E%3Cline x1='14' y1='41' x2='26' y2='41'/%3E%3Cline x1='26' y1='23' x2='26' y2='41'/%3E%3Cline x1='26' y1='32' x2='38' y2='32'/%3E%3Cline x1='38' y1='32' x2='50' y2='32'/%3E%3C/g%3E%3C/svg%3E" />
+</head>
+<body>
 
 <div class="utility-bar">
   <div class="wrap">
-    <span><strong>MOCK</strong> <span class="dim">— reflects PLAYBOOK_CO_NOTES.md review, not the live site</span></span>
-    <button class="review-toggle" id="reviewToggle" type="button" aria-pressed="false">Show review notes</button>
+    <span><strong>MOCK</strong> <span class="dim">— reflects PLAYBOOK_CO_NOTES.md review, not the live site. Dashed red boxes below are remarks, not part of the real design.</span></span>
   </div>
 </div>
 
@@ -442,7 +433,6 @@
     </nav>
     <div class="nav-right">
       <button class="lang-switch" id="langSwitch" type="button">EN / EL</button>
-      <a href="#contact" class="btn btn-primary">Let's Talk</a>
     </div>
   </div>
 </header>
@@ -454,20 +444,23 @@
       <span class="eyebrow">Event management, run like a playbook</span>
       <h1>Great events don't happen by chance — they happen by playbook.</h1>
       <p class="hero-sub">We plan, coordinate, and run tournaments end-to-end for clubs and federations — from registration to the final whistle — so you're not the one holding it all together on the day.</p>
-      <div class="hero-ctas">
-        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+      <div class="hero-ctas noted">
         <a href="#services" class="btn btn-ghost">See How We Work</a>
       </div>
+      <details class="note-flag" open>
+        <summary>"Let's Talk" CTA removed — navbar + hero</summary>
+        <p>The live site repeats this same CTA in 3 places (navbar, hero, and a mid-page "Ζητήστε Προσφορά" banner right before Contact). Removed the navbar and hero copies to cut the redundancy — Contact is one scroll away either way. The mid-page banner ("Δεν ξέρετε ποια υπηρεσία ταιριάζει στην εκδήλωση σας; ΖΗΤΗΣΤΕ ΠΡΟΣΦΟΡΑ") isn't reproduced here at all, for the same reason.</p>
+      </details>
 
       <div class="removed-ghost" aria-hidden="true">
         <div class="stat"><b>40+</b><small>Events delivered</small></div>
         <div class="stat"><b>20+</b><small>Clubs &amp; Federations</small></div>
       </div>
-      <details class="note-flag">
+      <details class="note-flag" open>
         <summary>Stats strip — removed</summary>
         <p>The "40+ Events / 20+ Clubs &amp; Federations" strip under the hero was imagined numbers with no source. Cut entirely rather than replaced — the struck-through ghost above only renders in review mode to show what used to sit here.</p>
       </details>
-      <details class="note-flag">
+      <details class="note-flag" open>
         <summary>Scope — decided: single-page</summary>
         <p>Single-page anchor-scroll, no exceptions. Articles (the one section that used to link out to a real separate URL) is removed entirely — see the Portfolio note below for how events scale instead.</p>
       </details>
@@ -479,7 +472,7 @@
       <div class="section-head noted">
         <span class="eyebrow"><span class="i18n-en">What we do</span><span class="i18n-gr">Τι κάνουμε</span></span>
         <h2><span class="i18n-en">Services</span><span class="i18n-gr">Υπηρεσίες</span></h2>
-        <details class="note-flag">
+        <details class="note-flag" open>
           <summary>No dedicated subpage per service</summary>
           <p>Single-page lead-gen site, one CTA — don't fork attention. Revisit a dedicated Tournament Automation subpage once there's a concrete proof point (a live event running on Kombatly) to show.</p>
         </details>
@@ -496,7 +489,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10v4h3l7 4V6l-7 4H3z"/><line x1="18" y1="9" x2="18" y2="15"/><line x1="21" y1="7" x2="21" y2="17"/></svg>
           <h3><span class="i18n-en">Brand &amp; Promotion</span><span class="i18n-gr">Branding &amp; Προβολή</span></h3>
           <p class="card-desc"><span class="i18n-en">Team identity &amp; communication strategy · Social media content · Sponsor management &amp; visibility</span><span class="i18n-gr">Διαμόρφωση ταυτότητας ομάδας &amp; στρατηγική επικοινωνίας · Περιεχόμενο social media · Διαχείριση &amp; προβολή χορηγών</span></p>
-          <details class="note-flag">
+          <details class="note-flag" open>
             <summary>Merged card</summary>
             <p>Combines the former "Promotion &amp; Communications" and "Team Brand Development" cards — they overlapped on sponsor messaging.</p>
           </details>
@@ -506,7 +499,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="4" x2="3" y2="10"/><line x1="3" y1="7" x2="9" y2="7"/><line x1="3" y1="14" x2="3" y2="20"/><line x1="3" y1="17" x2="9" y2="17"/><line x1="9" y1="7" x2="9" y2="17"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>
           <h3><span class="i18n-en">Tournament Automation</span><span class="i18n-gr">Αυτοματοποίηση Τουρνουά</span></h3>
           <p class="card-desc"><span class="i18n-en">Team registrations · Automated bracket generation &amp; progression · Live streaming &amp; real-time scoring</span><span class="i18n-gr">Εγγραφές ομάδων · Αυτόματη δημιουργία bracket &amp; πρόκριση ομάδων · Live streaming &amp; σκορ σε πραγματικό χρόνο</span></p>
-          <details class="note-flag">
+          <details class="note-flag" open>
             <summary>New card</summary>
             <p>Surfaces Kombatly's capability without naming the product — fills the slot freed by consolidating the two cards above. Un-branded on purpose.</p>
           </details>
@@ -531,7 +524,7 @@
           <span class="i18n-en">Results</span><span class="i18n-gr">Αποτελέσματα</span><br />
           <em><span class="i18n-en">Consistency</span><span class="i18n-gr">Συνέπεια</span></em>
         </h2>
-        <details class="note-flag">
+        <details class="note-flag" open>
           <summary>Section moved</summary>
           <p>Moved from position 2 (right after Hero) to after Services. Visitors need to know what the company does before they can evaluate "why us" claims — this also puts Why Playbook right next to the Portfolio proof that backs it up.</p>
         </details>
@@ -560,7 +553,7 @@
         </div>
       </div>
 
-      <details class="note-flag">
+      <details class="note-flag" open>
         <summary>Structure corrected + body copy added to all 4</summary>
         <p>Live site is one stacked 3-word heading (Expertise / Control / Results) plus 4 caption-only columns — the 4th, "Experience &amp; Consistency," has no matching heading word and no body copy on the live site today. A caption alone doesn't deliver a message, so this mock adds a 4th heading word ("Consistency") and a body-copy line under all 4 columns, including a new one for Consistency that didn't exist before.</p>
       </details>
@@ -586,11 +579,11 @@
         </div>
       </div>
 
-      <details class="note-flag">
+      <details class="note-flag" open>
         <summary>Scaling — decided: stacked sections</summary>
         <p>Each event gets its own full section, stacked vertically below the previous one as more events are added — not a slider, static grid, or dedicated archive page. Only AO Gerakas exists today, so this is a section of one, but the pattern is: event 2 renders as another block like this one directly underneath. Worth watching for page weight as more video-bearing sections stack up.</p>
       </details>
-      <details class="note-flag">
+      <details class="note-flag" open>
         <summary>Articles section — removed</summary>
         <p>Used to sit here. Only ever had one entry, duplicating this same AO Gerakas event, and it was the site's only link out to a separate URL. Removing it makes the whole site single-page anchor-scroll with no exceptions.</p>
       </details>
@@ -604,7 +597,7 @@
           <span class="eyebrow">Start the conversation</span>
           <h2>Contact</h2>
           <p class="hero-sub" style="margin-top:1rem;">Tell us about your event. We'll get back to you with next steps.</p>
-          <details class="note-flag">
+          <details class="note-flag" open>
             <summary>Cut from 10 fields to 4</summary>
             <p>Previously: Full Name, Email, Organization/Club, Role/Title, Country, Approximate Event Date, Type of Event, Message, Website, plus a consent checkbox — 6 fields and the checkbox required before a first-touch inquiry could be submitted. Felt like the third degree for a first message. Cut to minimum: Name, Email, Message required. Phone added as optional — the "Send Your Brief" deliverable is written, so email stays required; phone is just for organizers who'd rather get a call.</p>
           </details>
@@ -650,7 +643,7 @@
         </a>
       </div>
     </div>
-    <details class="note-flag">
+    <details class="note-flag" open>
       <summary>Dead social link — removed</summary>
       <p>Footer used to have a second social icon linking to "#" with no destination. Removed rather than left broken — only the working Facebook icon remains.</p>
     </details>
@@ -673,15 +666,10 @@
     });
   });
 
-  var reviewToggle = document.getElementById('reviewToggle');
-  reviewToggle.addEventListener('click', function () {
-    var on = document.body.classList.toggle('review-mode');
-    reviewToggle.setAttribute('aria-pressed', String(on));
-    reviewToggle.textContent = on ? 'Hide review notes' : 'Show review notes';
-  });
-
   var langSwitch = document.getElementById('langSwitch');
   langSwitch.addEventListener('click', function () {
     document.body.classList.toggle('lang-gr');
   });
 </script>
+</body>
+</html>
