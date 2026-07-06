@@ -1,0 +1,687 @@
+<title>The Playbook Co. — Reviewed Mock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --ink: #14181a;
+    --ink-soft: #4b5350;
+    --paper: #f2eee4;
+    --paper-raised: #ffffff;
+    --pitch: #173628;
+    --pitch-soft: #20493a;
+    --pitch-text: #eae6da;
+    --accent: #e2a63b;
+    --accent-ink: #34240a;
+    --line: rgba(20, 24, 26, 0.14);
+    --review: #c23b22;
+    --review-soft: rgba(194, 59, 34, 0.09);
+    --review-line: rgba(194, 59, 34, 0.55);
+
+    --font-display: "Arial Black", "Segoe UI", -apple-system, sans-serif;
+    --font-body: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #ece8dd;
+      --ink-soft: #b6bcb8;
+      --paper: #10140f;
+      --paper-raised: #171d17;
+      --pitch: #0c2118;
+      --pitch-soft: #123322;
+      --pitch-text: #eae6da;
+      --accent: #eab65c;
+      --accent-ink: #201400;
+      --line: rgba(236, 232, 221, 0.14);
+      --review: #ff7a53;
+      --review-soft: rgba(255, 122, 83, 0.1);
+      --review-line: rgba(255, 122, 83, 0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #ece8dd;
+    --ink-soft: #b6bcb8;
+    --paper: #10140f;
+    --paper-raised: #171d17;
+    --pitch: #0c2118;
+    --pitch-soft: #123322;
+    --pitch-text: #eae6da;
+    --accent: #eab65c;
+    --accent-ink: #201400;
+    --line: rgba(236, 232, 221, 0.14);
+    --review: #ff7a53;
+    --review-soft: rgba(255, 122, 83, 0.1);
+    --review-line: rgba(255, 122, 83, 0.55);
+  }
+  :root[data-theme="light"] {
+    --ink: #14181a;
+    --ink-soft: #4b5350;
+    --paper: #f2eee4;
+    --paper-raised: #ffffff;
+    --pitch: #173628;
+    --pitch-soft: #20493a;
+    --pitch-text: #eae6da;
+    --accent: #e2a63b;
+    --accent-ink: #34240a;
+    --line: rgba(20, 24, 26, 0.14);
+    --review: #c23b22;
+    --review-soft: rgba(194, 59, 34, 0.09);
+    --review-line: rgba(194, 59, 34, 0.55);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: auto; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a { color: inherit; }
+  ul { margin: 0; padding: 0; list-style: none; }
+  button { font: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.75rem; }
+
+  /* ---------- utility / disclaimer bar ---------- */
+  .utility-bar {
+    background: var(--pitch);
+    color: var(--pitch-text);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+  }
+  .utility-bar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .utility-bar span.dim { opacity: 0.65; }
+  .review-toggle {
+    background: transparent;
+    border: 1px solid rgba(234, 230, 218, 0.4);
+    color: var(--pitch-text);
+    padding: 0.35rem 0.7rem;
+    border-radius: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.02em;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+  .review-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  body.review-mode .review-toggle { background: var(--review); border-color: var(--review); color: #fff; }
+
+  /* ---------- navbar ---------- */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+  }
+  .navbar .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    gap: 1.5rem;
+  }
+  .logo {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .logo span { color: var(--accent); }
+  .nav-links {
+    display: flex;
+    gap: 1.75rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+  .nav-links a { text-decoration: none; opacity: 0.8; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-right { display: flex; align-items: center; gap: 0.9rem; }
+  .lang-switch {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 0.3rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 2px;
+    letter-spacing: 0.03em;
+  }
+  body.lang-gr .lang-switch { color: var(--accent); border-color: var(--accent); }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { filter: brightness(1.06); }
+  .btn-ghost { border-color: var(--ink); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  @media (max-width: 760px) {
+    .nav-links { display: none; }
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 5.5rem 0; border-bottom: 1px solid var(--line); }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.9rem;
+  }
+  .section-head { max-width: 46ch; margin-bottom: 3rem; }
+  .section-head h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); text-transform: uppercase; letter-spacing: -0.01em; }
+
+  /* ---------- hero ---------- */
+  .hero { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+  .hero h1 {
+    font-size: clamp(2.1rem, 5.2vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    max-width: 16ch;
+  }
+  .hero-sub {
+    margin-top: 1.5rem;
+    max-width: 52ch;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+  }
+  .hero-ctas { display: flex; gap: 0.9rem; margin-top: 2.2rem; flex-wrap: wrap; }
+
+  .removed-ghost {
+    display: none;
+    margin-top: 2.5rem;
+    padding: 1rem 1.2rem;
+    border: 1px dashed var(--review-line);
+    background: var(--review-soft);
+    max-width: 44ch;
+    gap: 1.6rem;
+  }
+  body.review-mode .removed-ghost { display: flex; }
+  .removed-ghost .stat { font-family: var(--font-mono); }
+  .removed-ghost .stat b {
+    display: block;
+    font-size: 1.3rem;
+    color: var(--review);
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+  .removed-ghost .stat small { color: var(--ink-soft); font-family: var(--font-body); }
+
+  /* ---------- note flags (review annotations) ---------- */
+  .note-flag {
+    display: none;
+    margin-top: 1.1rem;
+    border: 1px dashed var(--review-line);
+    background: var(--review-soft);
+    padding: 0.6rem 0.85rem;
+    max-width: 60ch;
+  }
+  body.review-mode .note-flag { display: block; }
+  .note-flag summary {
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--review);
+    text-transform: uppercase;
+  }
+  .note-flag p {
+    margin-top: 0.55rem;
+    font-size: 0.87rem;
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+  body.review-mode .noted { outline: 2px dashed var(--review-line); outline-offset: 6px; }
+
+  /* ---------- services ---------- */
+  .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
+  @media (max-width: 900px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .card-grid { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    padding: 1.6rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+  .card svg { width: 26px; height: 26px; color: var(--accent); }
+  .card h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 0; }
+  .card-desc { font-size: 0.87rem; color: var(--ink-soft); }
+
+  /* ---------- why playbook ---------- */
+  .why { background: var(--pitch); color: var(--pitch-text); border-bottom-color: rgba(255,255,255,0.08); }
+  .why .eyebrow { color: var(--accent); }
+  .why .section-head .why-headline {
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--pitch-text);
+  }
+  .why-headline em { font-style: normal; color: var(--accent); }
+  .why-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin-top: 2.4rem;
+  }
+  @media (min-width: 700px) { .why-columns { grid-template-columns: repeat(4, 1fr); } }
+  .why-col {
+    padding: 1.6rem 1.4rem 1.6rem 0;
+    border-left: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .why-col:nth-child(odd) { border-left: none; }
+  @media (min-width: 700px) { .why-col:nth-child(odd) { border-left: 1px solid rgba(255, 255, 255, 0.14); } .why-col:first-child { border-left: none; } }
+  .why-col svg { width: 30px; height: 30px; color: var(--accent); display: block; margin-bottom: 1rem; }
+  .why-col > span {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: rgba(234, 230, 218, 0.85);
+  }
+  .why-col p {
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: rgba(234, 230, 218, 0.75);
+  }
+  .why .note-flag { background: rgba(194,59,34,0.16); }
+  .why .note-flag p { color: var(--pitch-text); }
+
+  /* ---------- portfolio ---------- */
+  .event-card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+  }
+  @media (max-width: 760px) { .event-card { grid-template-columns: 1fr; } }
+  .event-media {
+    position: relative;
+    min-height: 260px;
+    background: repeating-linear-gradient(
+      120deg,
+      var(--pitch) 0 40px,
+      var(--pitch-soft) 40px 80px
+    );
+    overflow: hidden;
+  }
+  .event-media::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45) 100%);
+  }
+  .event-media-chip {
+    position: absolute;
+    left: 1rem; bottom: 1rem;
+    z-index: 1;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: #fff;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.3rem 0.55rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .event-media { animation: drift 14s linear infinite; }
+  }
+  @keyframes drift {
+    from { background-position: 0 0; }
+    to { background-position: 160px 0; }
+  }
+  .event-body { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+  .event-body h3 { font-size: 1.3rem; text-transform: uppercase; }
+  .event-body p { color: var(--ink-soft); font-size: 0.92rem; }
+
+  .article-link { font-size: 0.82rem; color: var(--accent); margin-top: 0.3rem; display: inline-flex; align-items: center; gap: 0.3rem; }
+
+  /* ---------- contact ---------- */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+  @media (max-width: 760px) { .contact-grid { grid-template-columns: 1fr; } }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
+  .field label { font-size: 0.8rem; font-weight: 700; }
+  .field .opt { font-weight: 400; color: var(--ink-soft); font-family: var(--font-mono); font-size: 0.72rem; }
+  .field input, .field textarea {
+    font: inherit;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    color: var(--ink);
+  }
+  .field textarea { min-height: 110px; resize: vertical; }
+  .field input:focus, .field textarea:focus { border-color: var(--accent); }
+
+  /* ---------- footer ---------- */
+  footer { padding: 3rem 0 2.5rem; border-bottom: none; }
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .footer-nav { display: flex; gap: 1.5rem; font-size: 0.85rem; flex-wrap: wrap; }
+  .footer-nav a { text-decoration: none; opacity: 0.75; }
+  .social { display: flex; gap: 0.7rem; }
+  .social a {
+    width: 34px; height: 34px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .social svg { width: 16px; height: 16px; }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  /* i18n */
+  .i18n-gr { display: none; }
+  body.lang-gr .i18n-en { display: none; }
+  body.lang-gr .i18n-gr { display: inline; }
+</style>
+
+<div class="utility-bar">
+  <div class="wrap">
+    <span><strong>MOCK</strong> <span class="dim">— reflects PLAYBOOK_CO_NOTES.md review, not the live site</span></span>
+    <button class="review-toggle" id="reviewToggle" type="button" aria-pressed="false">Show review notes</button>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="wrap">
+    <a href="#hero" class="logo">PLAYBOOK<span>.</span>CO</a>
+    <nav class="nav-links">
+      <a href="#services"><span class="i18n-en">Services</span><span class="i18n-gr">Υπηρεσίες</span></a>
+      <a href="#why"><span class="i18n-en">Why Playbook</span><span class="i18n-gr">Γιατί Playbook</span></a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-switch" id="langSwitch" type="button">EN / EL</button>
+      <a href="#contact" class="btn btn-primary">Let's Talk</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" id="hero">
+    <div class="wrap noted">
+      <span class="eyebrow">Event management, run like a playbook</span>
+      <h1>Great events don't happen by chance — they happen by playbook.</h1>
+      <p class="hero-sub">We plan, coordinate, and run tournaments end-to-end for clubs and federations — from registration to the final whistle — so you're not the one holding it all together on the day.</p>
+      <div class="hero-ctas">
+        <a href="#contact" class="btn btn-primary">Let's Talk</a>
+        <a href="#services" class="btn btn-ghost">See How We Work</a>
+      </div>
+
+      <div class="removed-ghost" aria-hidden="true">
+        <div class="stat"><b>40+</b><small>Events delivered</small></div>
+        <div class="stat"><b>20+</b><small>Clubs &amp; Federations</small></div>
+      </div>
+      <details class="note-flag">
+        <summary>Stats strip — removed</summary>
+        <p>The "40+ Events / 20+ Clubs &amp; Federations" strip under the hero was imagined numbers with no source. Cut entirely rather than replaced — the struck-through ghost above only renders in review mode to show what used to sit here.</p>
+      </details>
+      <details class="note-flag">
+        <summary>Scope — decided: single-page</summary>
+        <p>Single-page anchor-scroll, no exceptions. Articles (the one section that used to link out to a real separate URL) is removed entirely — see the Portfolio note below for how events scale instead.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head noted">
+        <span class="eyebrow"><span class="i18n-en">What we do</span><span class="i18n-gr">Τι κάνουμε</span></span>
+        <h2><span class="i18n-en">Services</span><span class="i18n-gr">Υπηρεσίες</span></h2>
+        <details class="note-flag">
+          <summary>No dedicated subpage per service</summary>
+          <p>Single-page lead-gen site, one CTA — don't fork attention. Revisit a dedicated Tournament Automation subpage once there's a concrete proof point (a live event running on Kombatly) to show.</p>
+        </details>
+      </div>
+
+      <div class="card-grid">
+        <article class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="7" y1="2" x2="7" y2="6"/><line x1="17" y1="2" x2="17" y2="6"/></svg>
+          <h3><span class="i18n-en">Event Planning &amp; Management</span><span class="i18n-gr">Διοργάνωση &amp; Διαχείριση Εκδήλωσης</span></h3>
+          <p class="card-desc"><span class="i18n-en">Event planning &amp; scheduling · Team coordination · On-site support</span><span class="i18n-gr">Σχεδιασμός &amp; προγραμματισμός εκδήλωσης · Συντονισμός ομάδων · Υποστήριξη στον χώρο της εκδήλωσης</span></p>
+        </article>
+
+        <article class="card noted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10v4h3l7 4V6l-7 4H3z"/><line x1="18" y1="9" x2="18" y2="15"/><line x1="21" y1="7" x2="21" y2="17"/></svg>
+          <h3><span class="i18n-en">Brand &amp; Promotion</span><span class="i18n-gr">Branding &amp; Προβολή</span></h3>
+          <p class="card-desc"><span class="i18n-en">Team identity &amp; communication strategy · Social media content · Sponsor management &amp; visibility</span><span class="i18n-gr">Διαμόρφωση ταυτότητας ομάδας &amp; στρατηγική επικοινωνίας · Περιεχόμενο social media · Διαχείριση &amp; προβολή χορηγών</span></p>
+          <details class="note-flag">
+            <summary>Merged card</summary>
+            <p>Combines the former "Promotion &amp; Communications" and "Team Brand Development" cards — they overlapped on sponsor messaging.</p>
+          </details>
+        </article>
+
+        <article class="card noted">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="4" x2="3" y2="10"/><line x1="3" y1="7" x2="9" y2="7"/><line x1="3" y1="14" x2="3" y2="20"/><line x1="3" y1="17" x2="9" y2="17"/><line x1="9" y1="7" x2="9" y2="17"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>
+          <h3><span class="i18n-en">Tournament Automation</span><span class="i18n-gr">Αυτοματοποίηση Τουρνουά</span></h3>
+          <p class="card-desc"><span class="i18n-en">Team registrations · Automated bracket generation &amp; progression · Live streaming &amp; real-time scoring</span><span class="i18n-gr">Εγγραφές ομάδων · Αυτόματη δημιουργία bracket &amp; πρόκριση ομάδων · Live streaming &amp; σκορ σε πραγματικό χρόνο</span></p>
+          <details class="note-flag">
+            <summary>New card</summary>
+            <p>Surfaces Kombatly's capability without naming the product — fills the slot freed by consolidating the two cards above. Un-branded on purpose.</p>
+          </details>
+        </article>
+
+        <article class="card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="3" y1="20" x2="21" y2="4" stroke-dasharray="1 4.2"/><circle cx="3" cy="20" r="1.8" fill="currentColor" stroke="none"/><circle cx="21" cy="4" r="1.8" fill="currentColor" stroke="none"/></svg>
+          <h3><span class="i18n-en">Delegations &amp; Travel Logistics</span><span class="i18n-gr">Αποστολές &amp; Logistics</span></h3>
+          <p class="card-desc"><span class="i18n-en">Transportation · Accommodation · Programme coordination</span><span class="i18n-gr">Μεταφορές · Διαμονή · Συντονισμός προγράμματος</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="why" id="why">
+    <div class="wrap">
+      <div class="section-head noted">
+        <span class="eyebrow"><span class="i18n-en">Why Playbook</span><span class="i18n-gr">Γιατί Playbook</span></span>
+        <h2 class="why-headline">
+          <span class="i18n-en">Expertise</span><span class="i18n-gr">Τεχνογνωσία</span><br />
+          <span class="i18n-en">Control</span><span class="i18n-gr">Έλεγχος</span><br />
+          <span class="i18n-en">Results</span><span class="i18n-gr">Αποτελέσματα</span><br />
+          <em><span class="i18n-en">Consistency</span><span class="i18n-gr">Συνέπεια</span></em>
+        </h2>
+        <details class="note-flag">
+          <summary>Section moved</summary>
+          <p>Moved from position 2 (right after Hero) to after Services. Visitors need to know what the company does before they can evaluate "why us" claims — this also puts Why Playbook right next to the Portfolio proof that backs it up.</p>
+        </details>
+      </div>
+
+      <div class="why-columns noted">
+        <div class="why-col">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+          <span><span class="i18n-en">Planning &amp; Control</span><span class="i18n-gr">Σχεδιασμός &amp; Έλεγχος</span></span>
+          <p><span class="i18n-en">You don't have to think through every failure mode yourself — we've already planned around the ones that catch other organizers off guard.</span><span class="i18n-gr">Δεν χρειάζεται να προβλέπεις εσύ κάθε πιθανό πρόβλημα — εμείς έχουμε ήδη αντιμετωπίσει όσα δυσκολεύουν τους περισσότερους διοργανωτές.</span></p>
+        </div>
+        <div class="why-col">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span><span class="i18n-en">Coordination &amp; Execution</span><span class="i18n-gr">Συντονισμός &amp; Εκτέλεση</span></span>
+          <p><span class="i18n-en">Our team keeps every moving part in sync on the day, so you're not the one chasing schedules, sponsors, and suppliers.</span><span class="i18n-gr">Η ομάδα μας συντονίζει τα πάντα την ημέρα της εκδήλωσης, ώστε εσύ να μη χρειάζεται να κυνηγάς χρονοδιαγράμματα, χορηγούς και προμηθευτές.</span></p>
+        </div>
+        <div class="why-col">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          <span><span class="i18n-en">Results &amp; Accountability</span><span class="i18n-gr">Αποτελέσματα &amp; Λογοδοσία</span></span>
+          <p><span class="i18n-en">You judge your event by real results — turnout, execution, outcomes — not just a good feeling afterward.</span><span class="i18n-gr">Το αποτέλεσμα φαίνεται σε συγκεκριμένους δείκτες — προσέλευση, ομαλή διεξαγωγή, στόχοι που επιτεύχθηκαν — όχι απλώς σε μια καλή εντύπωση στο τέλος.</span></p>
+        </div>
+        <div class="why-col">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span><span class="i18n-en">Experience &amp; Consistency</span><span class="i18n-gr">Εμπειρία &amp; Συνέπεια</span></span>
+          <p><span class="i18n-en">You get a process we've already run and refined at other events — not one we're figuring out for the first time on yours.</span><span class="i18n-gr">Εφαρμόζουμε μια διαδικασία που έχει ήδη δοκιμαστεί και βελτιωθεί σε άλλες διοργανώσεις — δεν πειραματιζόμαστε στη δική σου εκδήλωση.</span></p>
+        </div>
+      </div>
+
+      <details class="note-flag">
+        <summary>Structure corrected + body copy added to all 4</summary>
+        <p>Live site is one stacked 3-word heading (Expertise / Control / Results) plus 4 caption-only columns — the 4th, "Experience &amp; Consistency," has no matching heading word and no body copy on the live site today. A caption alone doesn't deliver a message, so this mock adds a 4th heading word ("Consistency") and a body-copy line under all 4 columns, including a new one for Consistency that didn't exist before.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Proof, not promises</span>
+        <h2>Portfolio</h2>
+      </div>
+
+      <div class="event-card noted">
+        <div class="event-media">
+          <span class="event-media-chip">▶ videodiorganosi.mp4 — muted, loop, no audio track</span>
+        </div>
+        <div class="event-body">
+          <span class="eyebrow" style="margin-bottom:0;">Case study</span>
+          <h3>AO Gerakas</h3>
+          <p>End-to-end delivery: registration, group draw, bracket, scoring, and on-site coordination for the club's flagship tournament.</p>
+          <a href="#" class="article-link">View recap →</a>
+        </div>
+      </div>
+
+      <details class="note-flag">
+        <summary>Scaling — decided: stacked sections</summary>
+        <p>Each event gets its own full section, stacked vertically below the previous one as more events are added — not a slider, static grid, or dedicated archive page. Only AO Gerakas exists today, so this is a section of one, but the pattern is: event 2 renders as another block like this one directly underneath. Worth watching for page weight as more video-bearing sections stack up.</p>
+      </details>
+      <details class="note-flag">
+        <summary>Articles section — removed</summary>
+        <p>Used to sit here. Only ever had one entry, duplicating this same AO Gerakas event, and it was the site's only link out to a separate URL. Removing it makes the whole site single-page anchor-scroll with no exceptions.</p>
+      </details>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <span class="eyebrow">Start the conversation</span>
+          <h2>Contact</h2>
+          <p class="hero-sub" style="margin-top:1rem;">Tell us about your event. We'll get back to you with next steps.</p>
+          <details class="note-flag">
+            <summary>Cut from 10 fields to 4</summary>
+            <p>Previously: Full Name, Email, Organization/Club, Role/Title, Country, Approximate Event Date, Type of Event, Message, Website, plus a consent checkbox — 6 fields and the checkbox required before a first-touch inquiry could be submitted. Felt like the third degree for a first message. Cut to minimum: Name, Email, Message required. Phone added as optional — the "Send Your Brief" deliverable is written, so email stays required; phone is just for organizers who'd rather get a call.</p>
+          </details>
+        </div>
+        <form class="noted" onsubmit="return false;">
+          <div class="field">
+            <label for="c-name">Full Name</label>
+            <input id="c-name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" type="email" required />
+          </div>
+          <div class="field">
+            <label for="c-phone">Phone <span class="opt">optional</span></label>
+            <input id="c-phone" type="tel" />
+          </div>
+          <div class="field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Your Brief →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <a href="#hero" class="logo">PLAYBOOK<span>.</span>CO</a>
+      <nav class="footer-nav">
+        <a href="#services">Services</a>
+        <a href="#why">Why Playbook</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="social noted">
+        <a href="#" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M14 9h-2a1 1 0 0 0-1 1v9M9 13h4"/></svg>
+        </a>
+      </div>
+    </div>
+    <details class="note-flag">
+      <summary>Dead social link — removed</summary>
+      <p>Footer used to have a second social icon linking to "#" with no destination. Removed rather than left broken — only the working Facebook icon remains.</p>
+    </details>
+    <div class="footer-bottom">
+      <span>© 2026 The Playbook Co.</span>
+      <span>Internal mock for review — not the live site</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').slice(1);
+      var el = id ? document.getElementById(id) : null;
+      if (!el) return;
+      e.preventDefault();
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  var reviewToggle = document.getElementById('reviewToggle');
+  reviewToggle.addEventListener('click', function () {
+    var on = document.body.classList.toggle('review-mode');
+    reviewToggle.setAttribute('aria-pressed', String(on));
+    reviewToggle.textContent = on ? 'Hide review notes' : 'Show review notes';
+  });
+
+  var langSwitch = document.getElementById('langSwitch');
+  langSwitch.addEventListener('click', function () {
+    document.body.classList.toggle('lang-gr');
+  });
+</script>
