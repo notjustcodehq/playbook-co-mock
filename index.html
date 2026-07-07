@@ -211,7 +211,7 @@
     display: flex;
     margin-top: 2.5rem;
     padding: 1rem 1.2rem;
-    border: 1px dashed var(--review-line);
+    border: 1px solid var(--review-line);
     background: var(--review-soft);
     max-width: 44ch;
     gap: 1.6rem;
@@ -230,7 +230,7 @@
   .note-flag {
     display: block;
     margin-top: 1.1rem;
-    border: 1px dashed var(--review-line);
+    border: 1px solid var(--review-line);
     background: var(--review-soft);
     padding: 0.6rem 0.85rem;
     max-width: 60ch;
@@ -250,7 +250,6 @@
     color: var(--ink);
     font-family: var(--font-body);
   }
-  .noted { outline: 2px dashed var(--review-line); outline-offset: 6px; }
 
   /* ---------- services ---------- */
   .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
@@ -652,9 +651,7 @@
       <p><b><span class="i18n-en">Language tag:</span><span class="i18n-gr">Γλώσσα σελίδας:</span></b> <span class="i18n-en">the English page's &lt;html&gt; tag says lang="el" (Greek) — mislabeled on both /en and /gr.</span><span class="i18n-gr">η αγγλική σελίδα έχει &lt;html lang="el"&gt; — δηλαδή δηλώνεται ως ελληνική, τόσο στο /en όσο και στο /gr.</span></p>
       <p><b><span class="i18n-en">Hreflang:</span><span class="i18n-gr">Hreflang:</span></b> <span class="i18n-en">no links between /en and /gr — Google can't tell they're language versions of the same page.</span><span class="i18n-gr">δεν υπάρχουν hreflang links ανάμεσα σε /en και /gr — η Google δεν μπορεί να καταλάβει ότι είναι εκδοχές της ίδιας σελίδας σε άλλη γλώσσα.</span></p>
       <p><b><span class="i18n-en">Title tag:</span><span class="i18n-gr">Τίτλος σελίδας:</span></b> <span class="i18n-en">every page's &lt;title&gt; repeats the site name twice — a template bug.</span><span class="i18n-gr">ο &lt;title&gt; κάθε σελίδας επαναλαμβάνει το όνομα της εταιρείας δύο φορές — bug στο template.</span></p>
-      <p><b><span class="i18n-en">Article metadata:</span><span class="i18n-gr">Metadata άρθρου:</span></b> <span class="i18n-en">the AO Gerakas article page has no meta description, and its social preview links back to the homepage instead of the article.</span><span class="i18n-gr">η σελίδα άρθρου για το AO Gerakas δεν έχει meta description, και το social preview της δείχνει την αρχική σελίδα αντί για το ίδιο το άρθρο.</span></p>
       <p><b><span class="i18n-en">Alt text:</span><span class="i18n-gr">Alt text:</span></b> <span class="i18n-en">2 real event photos have empty alt text.</span><span class="i18n-gr">2 πραγματικές φωτογραφίες event έχουν κενό alt text.</span></p>
-      <p><b><span class="i18n-en">Naming:</span><span class="i18n-gr">Ονομασία:</span></b> <span class="i18n-en">the article's own H1 says "AC Gerakas," not "AO Gerakas" — inconsistent with its own URL.</span><span class="i18n-gr">ο τίτλος του άρθρου γράφει «AC Gerakas» αντί για «AO Gerakas» — δεν ταιριάζει ούτε με το ίδιο του το URL.</span></p>
       <p><b><span class="i18n-en">Keywords:</span><span class="i18n-gr">Λέξεις-κλειδιά:</span></b> <span class="i18n-en">meta keywords target generic terms ("sports event management") barely reflected in the actual page text — "bracket" and "registration" appear 0 times; "federation" appeared once, inside the stats strip removed above.</span><span class="i18n-gr">οι λέξεις-κλειδιά στοχεύουν γενικούς όρους («sports event management») που σχεδόν πουθενά δεν εμφανίζονται στο ίδιο το κείμενο της σελίδας — «bracket» και «registration» εμφανίζονται 0 φορές· το «federation» εμφανιζόταν μία φορά, μέσα στη λωρίδα στατιστικών που αφαιρέθηκε παραπάνω.</span></p>
     </details>
     <div class="footer-bottom">
