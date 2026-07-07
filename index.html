@@ -251,6 +251,43 @@
     font-family: var(--font-body);
   }
 
+  /* ---------- favicon bug demo ---------- */
+  .favicon-demo {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.7rem;
+  }
+  .fake-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px 6px 0 0;
+    padding: 0.4rem 0.85rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  .fake-tab-title { font-size: 0.78rem; color: #333; font-family: var(--font-body); }
+  .fake-favicon-broken {
+    display: inline-flex;
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 0.68rem;
+    letter-spacing: -0.02em;
+  }
+  .fake-favicon-broken .ghost { color: #fff; }
+  .fake-favicon-broken .visible { color: #22b0e6; }
+  .fake-favicon-fixed { width: 16px; height: 16px; flex-shrink: 0; }
+  .favicon-demo-label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-family: var(--font-body);
+    margin-top: 0.4rem;
+    max-width: 20ch;
+  }
+
   /* ---------- services ---------- */
   .card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
   @media (max-width: 900px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -646,17 +683,37 @@
         </a>
       </div>
     </div>
+    <span class="eyebrow"><span class="i18n-en">Bugs</span><span class="i18n-gr">Bugs</span></span>
     <details class="note-flag" open>
       <summary><span class="i18n-en">Dead social link — removed</span><span class="i18n-gr">Νεκρός σύνδεσμος social — αφαιρέθηκε</span></summary>
       <p><span class="i18n-en">Footer used to have a second social icon linking to "#" with no destination. Removed rather than left broken — only the working Facebook icon remains.</span><span class="i18n-gr">Το footer είχε ένα δεύτερο εικονίδιο social που παρέπεμπε σε «#» χωρίς προορισμό. Αφαιρέθηκε αντί να μείνει σπασμένο — μένει μόνο το εικονίδιο Facebook που δουλεύει.</span></p>
     </details>
     <details class="note-flag" open>
+      <summary><span class="i18n-en">Favicon is broken — half the wordmark is invisible</span><span class="i18n-gr">Το favicon είναι σπασμένο — μισό λογότυπο αόρατο</span></summary>
+      <p><span class="i18n-en">The live favicon.ico is 32×10px, not square — a cropped slice of the "Playbook" wordmark. "PLAY" renders in white at low opacity (invisible on light backgrounds), "OOK" in solid brand cyan. In Google search results and light browser tabs, only "ook" shows up. Even fixed, an 8-letter wordmark won't read at 16px — a single symbol mark (like this mock's icon) is the actual fix.</span><span class="i18n-gr">Το πραγματικό favicon.ico είναι 32×10px, όχι τετράγωνο — ένα κομμένο κομμάτι του λογότυπου "Playbook". Το "PLAY" εμφανίζεται σε λευκό με χαμηλή διαφάνεια (αόρατο σε ανοιχτόχρωμο φόντο), το "OOK" σε συμπαγές κυανό. Στα αποτελέσματα Google και σε ανοιχτόχρωμες καρτέλες browser, φαίνεται μόνο το "ook". Ακόμα κι αν διορθωνόταν η αντίθεση, μια λέξη 8 γραμμάτων δεν διαβάζεται στα 16px — ένα μονό σύμβολο (όπως το εικονίδιο αυτού του mock) είναι η πραγματική λύση.</span></p>
+      <div class="favicon-demo">
+        <div>
+          <div class="fake-tab">
+            <span class="fake-favicon-broken"><span class="ghost">PLAY</span><span class="visible">OOK</span></span>
+            <span class="fake-tab-title">The Playbook Co.</span>
+          </div>
+          <span class="favicon-demo-label"><span class="i18n-en">Live site — reproduced from actual favicon.ico pixel data</span><span class="i18n-gr">Ζωντανή σελίδα — αναπαραγωγή από τα πραγματικά pixel του favicon.ico</span></span>
+        </div>
+        <div>
+          <div class="fake-tab">
+            <img class="fake-favicon-fixed" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23173628'/%3E%3Cg stroke='%23e2a63b' stroke-width='4' fill='none' stroke-linecap='round'%3E%3Cline x1='14' y1='16' x2='14' y2='30'/%3E%3Cline x1='14' y1='23' x2='26' y2='23'/%3E%3Cline x1='14' y1='34' x2='14' y2='48'/%3E%3Cline x1='14' y1='41' x2='26' y2='41'/%3E%3Cline x1='26' y1='23' x2='26' y2='41'/%3E%3Cline x1='26' y1='32' x2='38' y2='32'/%3E%3Cline x1='38' y1='32' x2='50' y2='32'/%3E%3C/g%3E%3C/svg%3E" alt="" />
+            <span class="fake-tab-title">Playbook.Co</span>
+          </div>
+          <span class="favicon-demo-label"><span class="i18n-en">This mock — single symbol, reads at any size</span><span class="i18n-gr">Αυτό το mock — μονό σύμβολο, διαβάζεται σε κάθε μέγεθος</span></span>
+        </div>
+      </div>
+    </details>
+    <span class="eyebrow"><span class="i18n-en">SEO</span><span class="i18n-gr">SEO</span></span>
+    <details class="note-flag" open>
       <summary><span class="i18n-en">SEO issues found on the live site (not yet fixed)</span><span class="i18n-gr">Θέματα SEO στη ζωντανή σελίδα (δεν έχουν διορθωθεί ακόμα)</span></summary>
       <p><b><span class="i18n-en">Language tag:</span><span class="i18n-gr">Γλώσσα σελίδας:</span></b> <span class="i18n-en">the English page's &lt;html&gt; tag says lang="el" (Greek) — mislabeled on both /en and /gr.</span><span class="i18n-gr">η αγγλική σελίδα έχει &lt;html lang="el"&gt; — δηλαδή δηλώνεται ως ελληνική, τόσο στο /en όσο και στο /gr.</span></p>
       <p><b><span class="i18n-en">Hreflang:</span><span class="i18n-gr">Hreflang:</span></b> <span class="i18n-en">no links between /en and /gr — Google can't tell they're language versions of the same page.</span><span class="i18n-gr">δεν υπάρχουν hreflang links ανάμεσα σε /en και /gr — η Google δεν μπορεί να καταλάβει ότι είναι εκδοχές της ίδιας σελίδας σε άλλη γλώσσα.</span></p>
       <p><b><span class="i18n-en">Title tag:</span><span class="i18n-gr">Τίτλος σελίδας:</span></b> <span class="i18n-en">every page's &lt;title&gt; repeats the site name twice — a template bug, e.g. "Sports Event Management | The Playbook Co. | The Playbook Co."</span><span class="i18n-gr">ο &lt;title&gt; κάθε σελίδας επαναλαμβάνει το όνομα της εταιρείας δύο φορές — bug στο template, π.χ. «Sports Event Management | The Playbook Co. | The Playbook Co.»</span></p>
-      <p><b><span class="i18n-en">Keywords:</span><span class="i18n-gr">Λέξεις-κλειδιά:</span></b> <span class="i18n-en">meta keywords target generic terms ("sports event management") barely reflected in the actual page text — "bracket" and "registration" appear 0 times; "federation" appeared once, inside the stats strip removed above.</span><span class="i18n-gr">οι λέξεις-κλειδιά στοχεύουν γενικούς όρους («sports event management») που σχεδόν πουθενά δεν εμφανίζονται στο ίδιο το κείμενο της σελίδας — «bracket» και «registration» εμφανίζονται 0 φορές· το «federation» εμφανιζόταν μία φορά, μέσα στη λωρίδα στατιστικών που αφαιρέθηκε παραπάνω.</span></p>
-      <p><b><span class="i18n-en">Alt text:</span><span class="i18n-gr">Alt text:</span></b> <span class="i18n-en">2 real event photos have empty alt text.</span><span class="i18n-gr">2 πραγματικές φωτογραφίες event έχουν κενό alt text.</span></p>
     </details>
     <div class="footer-bottom">
       <span>© 2026 The Playbook Co.</span>
